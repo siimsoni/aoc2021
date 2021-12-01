@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    'd01',
+]
+
+[profile.release]
+lto = 'thin'
+
+[profile.bench]
+lto = 'thin'
