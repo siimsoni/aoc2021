@@ -40,12 +40,11 @@ where
         buffer.extend_from_slice(&page[..page_len]);
     }
     tokenizer.flush();
-    let mut token_iter = tokenizer.tokens.iter();
     let mut res = Vec::new();
     let mut kind: &[u8] = &[];
     let mut value: &[u8] = &[];
     let mut pos = 0;
-    for token in &mut token_iter {
+    for token in tokenizer.tokens.iter() {
         match token.kind {
             TokenKind::Lit => value = &buffer[pos..pos + token.len],
             TokenKind::Ident => kind = &buffer[pos..pos + token.len],
