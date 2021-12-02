@@ -1,7 +1,7 @@
+use crate::tokenizer::{TokenKind, Tokenizer};
 use btoi::btoi;
-use std::io::BufRead;
-use crate::tokenizer::{Tokenizer, TokenKind};
 use std::convert::TryFrom;
+use std::io::BufRead;
 
 pub type Stmt = (StmtKind, i16);
 
@@ -20,13 +20,15 @@ impl TryFrom<&[u8]> for StmtKind {
             b"up" => Ok(StmtKind::Up),
             b"down" => Ok(StmtKind::Down),
             b"forward" => Ok(StmtKind::Forward),
-            _ => Err("unknown identifier")
+            _ => Err("unknown identifier"),
         }
     }
 }
 
-pub fn parse<R>(mut reader:R) -> Vec<Stmt>
-    where R: BufRead {
+pub fn parse<R>(mut reader: R) -> Vec<Stmt>
+where
+    R: BufRead,
+{
     let mut buffer = Vec::new();
     let mut tokenizer = Tokenizer::new();
     let mut page: [u8; 4096] = [0; 4096];
@@ -45,8 +47,8 @@ pub fn parse<R>(mut reader:R) -> Vec<Stmt>
     let mut pos = 0;
     for token in &mut token_iter {
         match token.kind {
-            TokenKind::Lit => value = &buffer[pos..pos+token.len],
-            TokenKind::Ident => kind = &buffer[pos..pos+token.len],
+            TokenKind::Lit => value = &buffer[pos..pos + token.len],
+            TokenKind::Ident => kind = &buffer[pos..pos + token.len],
             TokenKind::Newline => {
                 if let Some(command) = make_stmt(kind, value) {
                     res.push(command);
@@ -54,7 +56,7 @@ pub fn parse<R>(mut reader:R) -> Vec<Stmt>
                 kind = &[];
                 value = &[];
             }
-            _ => ()
+            _ => (),
         }
         pos += token.len;
     }
@@ -65,5 +67,7 @@ pub fn parse<R>(mut reader:R) -> Vec<Stmt>
 }
 
 fn make_stmt(kw: &[u8], val: &[u8]) -> Option<Stmt> {
-    StmtKind::try_from(kw).ok().and_then(|kw| btoi(val).ok().and_then(|val: i16| Some((kw, val))))
+    StmtKind::try_from(kw)
+        .ok()
+        .and_then(|kw| btoi(val).ok().and_then(|val: i16| Some((kw, val))))
 }
