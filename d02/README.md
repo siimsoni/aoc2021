@@ -19,7 +19,7 @@ Part 2 had an overflow error, which was caught by Rust.
 
 Local benchmark results:
 
-* parse: 28 μs
+* parse: 25 μs
 * part 1: 10 μs
 * part 2: 10 μs
  

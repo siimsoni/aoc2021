@@ -40,19 +40,19 @@ pub fn parse<R>(mut reader:R) -> Vec<Stmt>
     tokenizer.flush();
     let mut token_iter = tokenizer.tokens.iter();
     let mut res = Vec::new();
-    let mut kind: Option<StmtKind> = None;
-    let mut value: Option<i16> = None;
+    let mut kind: &[u8] = &[];
+    let mut value: &[u8] = &[];
     let mut pos = 0;
     for token in &mut token_iter {
         match token.kind {
-            TokenKind::Lit => value = Some(btoi(&buffer[pos..pos+token.len]).expect("int")),
-            TokenKind::Ident => kind = StmtKind::try_from(&buffer[pos..pos+token.len]).ok(),
+            TokenKind::Lit => value = &buffer[pos..pos+token.len],
+            TokenKind::Ident => kind = &buffer[pos..pos+token.len],
             TokenKind::Newline => {
                 if let Some(command) = make_stmt(kind, value) {
                     res.push(command);
                 }
-                kind = None;
-                value = None;
+                kind = &[];
+                value = &[];
             }
             _ => ()
         }
@@ -64,6 +64,6 @@ pub fn parse<R>(mut reader:R) -> Vec<Stmt>
     res
 }
 
-fn make_stmt(kw: Option<StmtKind>, val: Option<i16>) -> Option<Stmt> {
-    val.and_then(|val| kw.and_then(|kw| Some((kw, val))))
+fn make_stmt(kw: &[u8], val: &[u8]) -> Option<Stmt> {
+    StmtKind::try_from(kw).ok().and_then(|kw| btoi(val).ok().and_then(|val: i16| Some((kw, val))))
 }
