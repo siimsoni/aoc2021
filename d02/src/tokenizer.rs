@@ -13,7 +13,7 @@ impl Token {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum TokenKind {
     Ident,
-    Integer,
+    Lit,
     Whitespace,
     Newline,
 }
@@ -36,7 +36,7 @@ impl Tokenizer {
     pub fn tokenize(&mut self, iter: &mut std::slice::Iter<u8>) {
         for c in iter {
             let kind = match c {
-                b'0'..=b'9' => TokenKind::Integer,
+                b'0'..=b'9' => TokenKind::Lit,
                 b'a'..=b'z' => TokenKind::Ident,
                 b'\n' => TokenKind::Newline,
                 _ => TokenKind::Whitespace,

@@ -3,29 +3,29 @@ use std::io::BufRead;
 use crate::tokenizer::{Tokenizer, TokenKind};
 use std::convert::TryFrom;
 
-pub type Command = (Keyword, i16);
+pub type Stmt = (StmtKind, i16);
 
 #[derive(Clone, Debug)]
-pub enum Keyword {
+pub enum StmtKind {
     Up,
     Down,
     Forward,
 }
 
-impl TryFrom<&[u8]> for Keyword {
+impl TryFrom<&[u8]> for StmtKind {
     type Error = &'static str;
 
     fn try_from(str: &[u8]) -> Result<Self, Self::Error> {
         match str {
-            b"up" => Ok(Keyword::Up),
-            b"down" => Ok(Keyword::Down),
-            b"forward" => Ok(Keyword::Forward),
+            b"up" => Ok(StmtKind::Up),
+            b"down" => Ok(StmtKind::Down),
+            b"forward" => Ok(StmtKind::Forward),
             _ => Err("unknown identifier")
         }
     }
 }
 
-pub fn parse<R>(mut reader:R) -> Vec<Command>
+pub fn parse<R>(mut reader:R) -> Vec<Stmt>
     where R: BufRead {
     let mut buffer = Vec::new();
     let mut tokenizer = Tokenizer::new();
@@ -40,35 +40,35 @@ pub fn parse<R>(mut reader:R) -> Vec<Command>
     tokenizer.flush();
     let mut token_iter = tokenizer.tokens.iter();
     let mut res = Vec::new();
-    let mut keyword: Option<Keyword> = None;
+    let mut kind: Option<StmtKind> = None;
     let mut value: Option<i16> = None;
     let mut pos = 0;
     for token in &mut token_iter {
         match token.kind {
-            TokenKind::Integer => {
+            TokenKind::Lit => {
                 value = Some(btoi(&buffer[pos..pos+token.len]).expect("int"))
-            },
+            }
             TokenKind::Ident => {
-                keyword = Keyword::try_from(&buffer[pos..pos+token.len]).ok()
+                kind = StmtKind::try_from(&buffer[pos..pos+token.len]).ok()
             },
             TokenKind::Newline => {
-                if let Some(command) = parse_ident(keyword, value) {
+                if let Some(command) = make_stmt(kind, value) {
                     res.push(command);
                 }
-                keyword = None;
+                kind = None;
                 value = None;
             }
             _ => ()
         }
         pos += token.len;
     }
-    if let Some(command) = parse_ident(keyword, value) {
+    if let Some(command) = make_stmt(kind, value) {
         res.push(command);
     }
     res
 }
 
-fn parse_ident(keyword: Option<Keyword>, value: Option<i16>) -> Option<Command> {
+fn make_stmt(keyword: Option<StmtKind>, value: Option<i16>) -> Option<Stmt> {
     if let Some(value) = value {
         if let Some(keyword) = keyword {
             return Some((keyword, value));
