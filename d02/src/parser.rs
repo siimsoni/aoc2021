@@ -65,8 +65,8 @@ where
     res
 }
 
-fn make_stmt(kw: &[u8], val: &[u8]) -> Option<Stmt> {
-    StmtKind::try_from(kw)
+fn make_stmt(kind: &[u8], value: &[u8]) -> Option<Stmt> {
+    StmtKind::try_from(kind)
         .ok()
-        .and_then(|kw| btoi(val).ok().and_then(|val: i16| Some((kw, val))))
+        .and_then(|kind| btoi(value).ok().and_then(|value: i16| Some((kind, value))))
 }
