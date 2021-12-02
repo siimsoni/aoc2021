@@ -1,4 +1,5 @@
-pub fn solve(mut input: Vec<u16>) -> usize {
+pub fn solve(input: &Vec<u16>) -> usize {
+    let mut input = input.to_vec();
     let mut count = 0;
     let mut next;
     if let Some(last) = input.pop() {

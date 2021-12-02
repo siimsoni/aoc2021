@@ -22,7 +22,7 @@ Not the fastest and certainly not the prettiest code, but it's a nice challenge.
 
 Local benchmark results:
 
-* parse: 26 μs
+* parse: 33 μs
 * part 1: 496 ns
-* part 2: 2 μs
+* part 2: 1.78 μs
  

@@ -1,4 +1,4 @@
-pub fn solve(input: Vec<u16>) -> usize {
+pub fn solve(input: &Vec<u16>) -> usize {
     let mut count = 0;
     let mut sum1: u16;
     let mut sum2: u16;

@@ -10,9 +10,9 @@ fn main_benchmark(c: &mut Criterion) {
         });
         let parsed = parser::parse(buffer.as_bytes());
         c.bench_function("p1", |b| {
-            b.iter(|| part1::solve(parsed.to_vec()));
+            b.iter(|| part1::solve(&parsed));
         });
-        c.bench_function("p2", |b| b.iter(|| part2::solve(parsed.to_vec())));
+        c.bench_function("p2", |b| b.iter(|| part2::solve(&parsed)));
     }
 }
 
