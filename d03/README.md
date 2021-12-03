@@ -1,4 +1,4 @@
-# Day 1: Binary Diagnostic
+# Day 3: Binary Diagnostic
 
 ## Run
 
