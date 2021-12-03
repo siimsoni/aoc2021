@@ -1,4 +1,4 @@
-# Day 1: Dive!
+# Day 1: Binary Diagnostic
 
 ## Run
 
