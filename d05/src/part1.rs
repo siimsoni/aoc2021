@@ -1,7 +1,6 @@
 use crate::parser::{Coordinates, Segment};
-use std::cmp::max;
-use std::collections::HashSet;
 use bitset_fixed::BitSet;
+use std::cmp::max;
 
 fn nearest_pow_2(val: usize) -> usize {
     let mut result = 0;
@@ -23,24 +22,25 @@ pub fn solve(parsed: &Vec<Segment>) -> usize {
     width = nearest_pow_2(width);
     height = nearest_pow_2(height);
 
-    let mut bitset = BitSet::new(width * height);
-    let mut result = HashSet::new();
+    let size = width * height;
+    let mut bitset = BitSet::new(size);
+    let mut result = BitSet::new(size);
     for segment in parsed {
         if segment.start.x == segment.end.x || segment.start.y == segment.end.y {
             bitset = draw(bitset, segment, &mut result, width);
         }
     }
 
-    result.len()
+    result.count_ones() as usize
 }
 
-fn draw(mut bitset: BitSet, segment: &Segment, result: &mut HashSet<Coordinates>, width: usize) -> BitSet {
+fn draw(mut bitset: BitSet, segment: &Segment, result: &mut BitSet, width: usize) -> BitSet {
     let mut coordinates = segment.start.clone();
     let target = &segment.end;
     loop {
         let pos = (coordinates.y * width) + coordinates.x;
         if bitset[pos] {
-            result.insert(coordinates.clone());
+            result.set(pos, true);
         }
         bitset.set(pos, true);
         if let Some(r) = approach(coordinates, target) {

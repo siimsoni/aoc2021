@@ -3,7 +3,7 @@ use btoi::btoi;
 use std::io::BufRead;
 use std::slice::Iter;
 
-#[derive(Clone, Debug, Hash, PartialEq, Eq)]
+#[derive(Clone, Debug)]
 pub struct Coordinates {
     pub x: usize,
     pub y: usize,

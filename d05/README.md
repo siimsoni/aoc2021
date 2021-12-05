@@ -27,7 +27,7 @@ a bit faster, so swapped the implementation.
 
 Local benchmark results:
 
-* parse: 34 μs
-* part 1: 530 μs
-* part 2: 2.1 ms
+* parse: 30 μs
+* part 1: 215 μs
+* part 2: 658 μs
  
