@@ -26,6 +26,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
+name = "bitset-fixed"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8cc868e96ba5c32ffae4d42bf2940ca7fca317dcef3f19b6d7de66b6885abff"
+
+[[package]]
 name = "bstr"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -207,6 +213,15 @@ dependencies = [
 name = "d04"
 version = "0.1.0"
 dependencies = [
+ "btoi",
+ "criterion",
+]
+
+[[package]]
+name = "d05"
+version = "0.1.0"
+dependencies = [
+ "bitset-fixed",
  "btoi",
  "criterion",
 ]
