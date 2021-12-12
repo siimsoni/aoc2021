@@ -11,10 +11,12 @@ pub fn solve(input: &(Vec<u8>, usize)) -> usize {
             matrix = matrix.iter().map(|v| if *v > 9 { 0 } else { *v }).collect();
             matrix = do_flashes(matrix, flashes, width, len);
         }
-        if matrix.iter().map(|v| *v as usize).sum::<usize>() == 100 {
+
+        result += 1;
+
+        if matrix.iter().map(|v| *v as usize).sum::<usize>() == 0 {
             break;
         }
-        result += 1;
     }
 
     result
