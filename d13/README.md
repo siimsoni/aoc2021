@@ -21,7 +21,7 @@ transformation by each level, I could do the transformation per item as well, be
 final position of each point was not affected by other points.
 
 It would also be possible to pre-calculate canvas sizes, instead of per each coordinate
-transformation, but I did not do that as I had already spent a good time on this.
+transformation, but I did not do that as I had already spent a good amount of time on this.
 
 ### Part 2
 
