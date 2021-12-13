@@ -20,6 +20,9 @@ Here I was thinking about the order of operation. I realized that in addition to
 transformation by each level, I could do the transformation per item as well, because
 final position of each point was not affected by other points.
 
+It would also be possible to pre-calculate canvas sizes, instead of per each coordinate
+transformation, but I did not do that as I had already spent a good time on this.
+
 ### Part 2
 
 It was a struggle with off-by-one errors, and when I finally got the result it was rotated
