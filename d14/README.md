@@ -29,6 +29,11 @@ However, as I observed in beginning of part 1, this was very similar to
 problem of day 6, which meant I could solve each pair independently and
 cache the results.
 
+Since this relies heavily on hashmaps, there would be notable performance
+benefits in switching away from Rust's default hashing algorithm, which
+is designed to be cryptographically secure, and not required in this
+non-sensitive context (did not do).
+
 ---
 * parse: 5 μs
 * part 1: 893 μs 
