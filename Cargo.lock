@@ -295,6 +295,7 @@ dependencies = [
 name = "d15"
 version = "0.1.0"
 dependencies = [
+ "bitset-fixed",
  "criterion",
 ]
 

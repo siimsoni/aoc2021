@@ -1,3 +1,4 @@
+use bitset_fixed::BitSet;
 use std::cmp::{max, min};
 
 pub fn solve(input: &(Vec<u8>, usize)) -> usize {
@@ -12,8 +13,11 @@ pub fn solve(input: &(Vec<u8>, usize)) -> usize {
     let steps = max(cols, rows);
 
     worst_case = lowest_straight(steps - 1, rows - 1, cols - 1, worst_case, &matrix, width);
-    worst_case = settle(worst_case, &matrix, width);
-
+    let mut queue = BitSet::new(worst_case.len());
+    for n in 0..worst_case.len() {
+        queue.set(n, true);
+    }
+    worst_case = settle(worst_case, &matrix, width, queue);
     worst_case[0] - matrix[0] as usize
 }
 
@@ -93,39 +97,54 @@ pub fn multiply(input: &Vec<u8>, orig_cols: usize, multiplier: usize) -> (Vec<u8
 }
 
 
-fn settle(totals: Vec<usize>, weights: &Vec<u8>, width: usize) -> Vec<usize> {
-    let mut changes = 0;
+fn settle(totals: Vec<usize>, weights: &Vec<u8>, width: usize, queue: BitSet) -> Vec<usize> {
     let mut result = totals.to_vec();
-    let len = totals.len();
+    let mut new_queue = BitSet::new(queue.size());
     for n in 0..totals.len() {
+        if !queue[n] {
+            continue;
+        }
         let row = n / width;
         let col = n - (row * width);
         let weight = *weights.get(n).unwrap();
-        let mut low_neighbor = usize::MAX;
+        let mut neighbors = [None, None, None, None];
         if col != 0 {
-            low_neighbor = min(low_neighbor, *totals.get(n - 1).unwrap());
+            neighbors[0] = Some(n - 1);
         }
         if col != width - 1 {
-            low_neighbor = min(low_neighbor, *totals.get(n + 1).unwrap());
+            neighbors[1] = Some(n + 1);
         }
         if row != 0 {
-            low_neighbor = min(low_neighbor, *totals.get(n - width).unwrap());
+            neighbors[2] = Some(n - width);
         }
-        if let Some(below) = totals.get(n+width) {
-            low_neighbor = min(low_neighbor, *below);
+        if n + width < result.len() {
+            neighbors[3] = Some(n + width);
         }
+
+        let low_neighbor = neighbors.iter().fold(usize::MAX, |acc, pos| {
+            if let Some(pos) = pos {
+                min(acc, *totals.get(*pos).unwrap())
+            } else {
+                acc
+            }
+        });
+
         let total_weight = result.get_mut(n).unwrap();
 
         let recalculated_weight = weight as usize + low_neighbor;
 
         if *total_weight > recalculated_weight {
             *total_weight = recalculated_weight;
-            changes += 1;
+            for pos in neighbors {
+                if let Some(pos) = pos {
+                    new_queue.set(pos, true);
+                }
+            }
         }
     }
 
-    if changes > 0 {
-       return settle(result, weights, width);
+    if new_queue.count_ones() > 0 {
+       return settle(result, weights, width, new_queue);
     }
 
     result

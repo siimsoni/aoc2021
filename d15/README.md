@@ -55,3 +55,10 @@ Local benchmark results:
 * part 1: 35 μs (correct result with incorrect algorithm)
 * part 2: 1.2s 
  
+Keeping track of which values had changed in part 2 significantly reduced
+execution time, but not quite as much as I hoped.
+
+* part 2: 700 ms
+
+I guess I should read up in Dijkstra's algorithm at this point, but it was a great 
+thought experiment.
