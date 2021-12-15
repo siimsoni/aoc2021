@@ -42,6 +42,8 @@ disaster... So I had to rewrite that. I decided to recalculate lowest neighbors,
 none of the values became any lower. I dropped any attempt to add extra heuristics, 
 because I didn't have the mental capacity remaining to think if it's feasible or not.
 
+(One idea to try would be to do the first approximation step recursively for each changed value).
+
 I thought perhaps this would not solve the issue, but when I started outputting the 
 number of changes, I noticed it was getting lower, and after a few minutes 
 I got the result.
