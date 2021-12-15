@@ -39,7 +39,8 @@ again for the sample, but eventually produced in incorrect result on actual inpu
 
 My first approach to map the values from original array also proved to be quite a 
 disaster... So I had to rewrite that. I decided to recalculate lowest neighbors, until
-none of the values became any lower.
+none of the values became any lower. I dropped any attempt to add extra heuristics, 
+because I didn't have the mental capacity remaining to think if it's feasible or not.
 
 I thought perhaps this would not solve the issue, but when I started outputting the 
 number of changes, I noticed it was getting lower, and after a few minutes 
