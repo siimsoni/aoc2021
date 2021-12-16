@@ -44,7 +44,7 @@ because I didn't have the mental capacity remaining to think if it's feasible or
 
 (One idea to try would be to do the first approximation step recursively for each changed value,
 although that would have pretty bad worst case scenarios. Or some kind of approach solving
-shortest paths first, since values can only get lower, maybe w/ affinity to reaching the goal).
+lowest total weights first, since values can only get lower, maybe w/ affinity to reaching the goal).
 
 I thought perhaps this would not solve the issue, but when I started outputting the 
 number of changes, I noticed it was getting lower, and after a few minutes 
