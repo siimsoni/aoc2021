@@ -1,0 +1,15 @@
+[package]
+name = "d16"
+version = "0.1.0"
+authors = ["Kristjan Siimson <k.siimson@sportradar.com>"]
+edition = "2021"
+
+[dependencies]
+bit-vec = "0.6"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "main"
+harness = false
