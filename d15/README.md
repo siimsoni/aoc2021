@@ -43,7 +43,7 @@ none of the values became any lower. I dropped any attempt to add extra heuristi
 because I didn't have the mental capacity remaining to think if it's feasible or not.
 
 (One idea to try would be to do the first approximation step recursively for each changed value,
-although that would have pretty bad worst case scenarios. Or some kind of approach solving
+although that would not work well for labyrinth like pathfinding. Or some kind of approach solving
 lowest total weights first, since values can only get lower, maybe w/ affinity to reaching the goal).
 
 I thought perhaps this would not solve the issue, but when I started outputting the 
