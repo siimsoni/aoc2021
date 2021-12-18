@@ -96,9 +96,7 @@ pub fn inverse(mut snailfish_number: Vec<ElementKind>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::parser::{inverse, parse, parse_one, ElementKind};
-    use std::collections::LinkedList;
-    use std::io::BufReader;
+    use crate::parser::{inverse, parse_one};
     use std::str;
 
     #[test]

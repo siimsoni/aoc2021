@@ -59,3 +59,9 @@ But I am quite happy that I was able to solve today's puzzle with this approach.
 More of same thing, just some minor modifications.
 Since the values are non-symmetrical, I just brute forced the answers,
 but I suspect there is a faster way.
+
+Local benchmark results:
+
+* parse: 23 μs
+* part 1: 5 ms
+* part 2: 81 ms
