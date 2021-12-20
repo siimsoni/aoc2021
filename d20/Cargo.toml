@@ -1,12 +1,11 @@
 [package]
-name = "d19"
+name = "d20"
 version = "0.1.0"
 authors = ["Kristjan Siimson <k.siimson@sportradar.com>"]
 edition = "2021"
 
 [dependencies]
-btoi = "0.4"
-fxhash = "0.2.1"
+bit-vec = "0.6"
 
 [dev-dependencies]
 criterion = "0.3"
