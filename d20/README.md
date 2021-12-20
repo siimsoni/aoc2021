@@ -29,7 +29,12 @@ What was different, and what completely threw me off was the fact that the "outs
 pixels can change color - although the text did several times point out that the canvas
 is infinite and all pixels must be updated. I was in the mindset that this is a super
 easy problem, and became confident that I have a correct solution, so in that
-way it was a bit humbling.
+way it was a bit humbling. Thankfully a colleague of mine helped me from pulling 
+my hair out. :-)
+
+## Part 2
+
+More of the same...
 
 ---
 
