@@ -25,4 +25,4 @@ cacheable units.
 ---
 * parse: 232 ns
 * part 1: 608 ns
-* part 2: 31 ms
+* part 2: 29 ms
