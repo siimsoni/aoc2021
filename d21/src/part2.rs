@@ -1,19 +1,18 @@
 use std::cmp::max;
-use std::collections::HashMap;
+use fxhash::FxHashMap;
 
 type Score = (usize, usize);
 type Position = (usize, usize);
 
 pub fn solve(input: &(usize, usize)) -> usize {
-    let mut cache_1 = HashMap::new();
-    let result = count_universes((0, 0), (input.0 - 1, input.1 - 1), &mut cache_1);
+    let result = count_universes((0, 0), (input.0 - 1, input.1 - 1), &mut FxHashMap::default());
     max(result.0, result.1)
 }
 
 fn count_universes(
     score: Score,
     position: Position,
-    cache: &mut HashMap<(Score, Position), (usize, usize)>,
+    cache: &mut FxHashMap<(Score, Position), (usize, usize)>,
 ) -> (usize, usize) {
     if let Some(result) = cache.get(&(score, position)) {
         return *result;
